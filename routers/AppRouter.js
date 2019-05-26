@@ -1,20 +1,19 @@
-import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+import { createMaterialTopTabNavigator } from 'react-navigation';
 
-import LoginScreen from '../Screens/LoginScreen';
-import HomeScreen from '../Screens/HomeScreen';
-import ProfileScreen from '../Screens/ProfileScreen';
-import MessagesScreen from '../Screens/MessagesScreen';
+import HomeScreen from '../Screens/App/HomeScreen';
+import ProfileScreen from '../Screens/App/ProfileScreen';
+import MessagesScreen from '../Screens/App/MessagesScreen';
 
-const TabNavigator = createMaterialTopTabNavigator({
-    Login: { screen: LoginScreen },
+const AppNavigator = createMaterialTopTabNavigator({
     Home: { screen: HomeScreen,
         tabBarIcon: ({ tintColor }) => (<View style={iconContainerStyle}><Icon style={[{color: tintColor}]} size={iconSize} name={'user'}/></View>),
-        gesturesEnabled: false, },
-      Profile: { screen: ProfileScreen },
-      Messages: { screen: MessagesScreen }
+        gesturesEnabled: false
+    },
+    Profile: { screen: ProfileScreen },
+    Messages: { screen: MessagesScreen }
 }, {
     initialRouteName: 'Home',
-    order: ['Login', 'Profile', 'Home', 'Messages'],
+    order: ['Profile', 'Home', 'Messages'],
     lazy: true,
     optimizationsEnabled: true,
     swipeEnabled: true,
@@ -31,4 +30,4 @@ const TabNavigator = createMaterialTopTabNavigator({
     }
 });
 
-export default createAppContainer(TabNavigator);
+export default AppNavigator;

@@ -1,5 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Animated, PanResponder, Dimensions, Text, View } from 'react-native';
+import Loading from './Loading';
+import Card from './Card';
+
+import { startSetDeck, startLikeUser, startPassUser } from '../redux/actions/deck';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -18,7 +23,7 @@ let cards = [
     { name: 'Card4' }
 ]
 
-export default class Deck extends React.Component {
+class Deck extends React.Component {
     constructor(props) {
         super(props);
 
@@ -56,6 +61,7 @@ export default class Deck extends React.Component {
                 this.position.flattenOffset();
 
                 this.animateSwipe(gesture);
+                this.position.setValue(INITIAL_POSITION); //Initial value
                 this.handleSwipe();
             }
         })
@@ -69,9 +75,13 @@ export default class Deck extends React.Component {
     checkSwipeDirection = () => {
         if(this.offset.x > RIGHT_BOUND) {
             // Only set state once
-            if(!this.state.swipeDirection) this.setState({ swipeDirection: 'right' });
+            if(!this.state.swipeDirection || this.state.swipeDirection !== 'right') this.setState({ swipeDirection: 'right' });
+            console.log('like');
         }else if (this.offset.x < LEFT_BOUND) {
-            if(!this.state.swipeDirection) this.setState({ swipeDirection: 'left' });
+            if(!this.state.swipeDirection || this.state.swipeDirection !== 'left') this.setState({ swipeDirection: 'left' });
+            console.log('pass');
+        }else{
+            if(this.state.swipeDirection) this.setState({ swipeDirection: '' });
         }
     }
 
@@ -105,14 +115,16 @@ export default class Deck extends React.Component {
         }
     }
 
-    handleSwipe = () => {
+    handleSwipe = async () => {
         switch(this.state.swipeDirection) {
             case 'right':
                 console.log('like');
+                await this.props.dispatch(startLikeUser(this.props.deck[0]._id, this.props.token));
                 break;
 
             case 'left':
                 console.log('pass');
+                await this.props.dispatch(startPassUser(this.props.deck[0]._id, this.props.token));
                 break;
 
             default:
@@ -124,25 +136,61 @@ export default class Deck extends React.Component {
         this.setState({ swipeDirection: '' })
     }
 
+    prepareDeck = () => {
+        console.log('Prep deck')
+        if(!this.props.deck || !this.props.deck.length || this.props.requestDeck) {
+            this.requestDeck();
+        }
+    }
+
+    requestDeck = async () => {
+        console.log('Calling start set deck')
+        this.props.onDidRequestDeck();
+        await this.props.dispatch(startSetDeck(this.props.token));
+        console.log('Deck:')
+        console.log(this.props.deck)
+    }
+
     render() {
+        this.prepareDeck();
+        
         return (
-            cards.map((card, i) => (
+            this.props.deck === 'None' ?
+            <Text>No more users</Text>
+            :
+            !this.props.deck || !this.props.deck.length ?
+            <Loading/>
+            :
+            this.props.deck.slice(0, 2).map((card, i) => {
+                console.log(card)
+
+                return(
                 (i === 0) ?
                 <Animated.View
                     {...this.panResponder.panHandlers}
-                    key={card.name}
+                    key={card._id}
                     style={[{ transform: this.position.getTranslateTransform() }, { height: SCREEN_HEIGHT - 120, width: 100, padding: 10, position: 'absolute' }]}
                 >
-                    <Text>{card.name}</Text>
+                    <Card>
+                        <Text>{card._id}</Text>
+                    </Card>
                 </Animated.View>
                 :
                 <Animated.View
-                    key={card.name}
+                    key={card._id}
                     style={[{ height: SCREEN_HEIGHT - 120, width: 100, padding: 10, position: 'absolute' }]}
                 >
-                    {/* <Text>{card.name}</Text> */}
+                    <Card>
+                        <Text>OTHER CARD</Text>
+                    </Card>
                 </Animated.View>
-            ))
+            )})
         )
     }
 }
+const mapStateToProps = (state) => ({
+    token: state.auth.token,
+    deck: state.deck.list
+});
+
+export default connect(mapStateToProps)(Deck);

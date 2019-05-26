@@ -1,17 +1,21 @@
-const defaultState = {};
+const defaultState = {
+    list: []
+};
+console.log('in deck')
 export default (state = defaultState, action) => {
     switch (action.type) {
 
-        case 'SET_TOKEN':
+        case 'SET_DECK':
             return {
                 ...state,
-                token: action.token
+                list: action.deck
             };
-        case 'DELETE_TOKEN':
+
+        case 'REMOVE_CARD':
             return {
                 ...state,
-                token: ''
-            };
+                list: state.list.filter(card => card._id !== action.id)
+            }
 
         default:
             return state;

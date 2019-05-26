@@ -10,7 +10,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
-import AppRouter from './routers/AppRouter';
+import StartupRouter from './routers/StartupRouter';
 
 import { persistor, store } from './redux/storeConfig';
 
@@ -19,7 +19,7 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate loading={<View><Text>Loading</Text></View>} persistor={persistor}>
-          <AppRouter/>
+          <StartupRouter/>
         </PersistGate>
       </Provider>
     );

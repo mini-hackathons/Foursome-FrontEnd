@@ -1,16 +1,20 @@
 import { getLocation } from '../../utils/location';
+import axios from 'axios';
 
 const setLocation = (location) => ({
     type: 'SET_LOCATION',
     location
 });
-export const startSetLocation = () => {
+export const startSetLocation = (token) => {
     return async (dispatch) => {
         try {
             const location = await getLocation();
-            
-            console.log('----------------------------------------');
-            console.log(location);
+
+            const data = await axios.post('https://www.foursome.gq/update-location', {
+                location,
+                token
+            });
+            console.log(data);
 
             dispatch(setLocation(location));
         }

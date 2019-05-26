@@ -5,7 +5,7 @@ export default (state = defaultState, action) => {
     case 'SET_LOCATION':
       return {
         ...state,
-        currentLocation: action.location
+        location: action.location
       }
 
     default:
