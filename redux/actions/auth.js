@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const setToken = (token) => ({
-    type: 'SET_TOKEN',
+const setJwt = (token) => ({
+    type: 'SET_JWT',
     token
 });
-export const startSetToken = (inputToken, fbId) => {
+export const startSetJwt = (inputToken, fbId) => {
     return async (dispatch) => {
         try {
             const res = await axios.post(`https://www.foursome.gq/login/get-fb-jwt`,
@@ -16,7 +16,7 @@ export const startSetToken = (inputToken, fbId) => {
             if(res.status === 200) {
                 const token = res.data;
 
-                dispatch(setToken(token));
+                dispatch(setJwt(token));
             }
             else {
                 throw new Error('Server could not create JWT');

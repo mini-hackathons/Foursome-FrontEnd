@@ -2,12 +2,12 @@ const defaultState = {};
 export default (state = defaultState, action) => {
     switch (action.type) {
 
-        case 'SET_TOKEN':
+        case 'SET_JWT':
             return {
                 ...state,
                 token: action.token
             };
-        case 'DELETE_TOKEN':
+        case 'DELETE_JWT':
             return {
                 ...state,
                 token: ''

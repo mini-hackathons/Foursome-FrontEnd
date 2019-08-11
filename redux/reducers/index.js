@@ -9,6 +9,7 @@ import test from './test';
 import auth from './auth';
 import location from './location';
 import deck from './deck';
+import chat from './chat';
 
 
 // CONFIGS
@@ -33,7 +34,8 @@ const appReducer = combineReducers({
     test,
     auth: persistReducer(authPersistConfig, auth),
     location: persistReducer(locationPersistConfig, location),
-    deck
+    deck,
+    chat
 });
 
 // RESET ROOT REDUCER

@@ -2,7 +2,7 @@ import { createMaterialTopTabNavigator } from 'react-navigation';
 
 import HomeScreen from '../Screens/App/HomeScreen';
 import ProfileScreen from '../Screens/App/ProfileScreen';
-import MessagesScreen from '../Screens/App/MessagesScreen';
+import ChatScreen from '../Screens/App/ChatScreen';
 
 const AppNavigator = createMaterialTopTabNavigator({
     Home: { screen: HomeScreen,
@@ -10,10 +10,10 @@ const AppNavigator = createMaterialTopTabNavigator({
         gesturesEnabled: false
     },
     Profile: { screen: ProfileScreen },
-    Messages: { screen: MessagesScreen }
+    Chat: { screen: ChatScreen }
 }, {
     initialRouteName: 'Home',
-    order: ['Profile', 'Home', 'Messages'],
+    order: ['Profile', 'Home', 'Chat'],
     lazy: true,
     optimizationsEnabled: true,
     swipeEnabled: true,

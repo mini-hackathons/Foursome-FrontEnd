@@ -5,9 +5,21 @@ import { View } from 'react-native';
 import { NavigationEvents } from 'react-navigation';
 import Loading from '../components/Loading';
 
+// Push Notifications
+import { checkFcmPermissions, onTokenRefreshListener } from '../Fcm/PushNotif';
+
+
 class RootScreen extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  async componentWillMount() {
+    await checkFcmPermissions();
+  }
+
+  componentWillUnmount() {
+    onTokenRefreshListener();
   }
 
   onDidFocus = () => {

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Text, View } from 'react-native';
 
 import FBLogin from '../../components/FBLogin';
-import { startSetToken } from '../../redux/actions/auth';
+import { startSetJwt } from '../../redux/actions/auth';
 import initStore from '../../redux/initStore';
 import { handleLogInOut } from '../../utils/navigation';
 
@@ -15,7 +15,7 @@ class LoginScreen extends React.Component {
     onFBLogin = async (accessToken, userID) => {
         // Set token
         console.log(this.props.token)
-        await this.props.dispatch(startSetToken(accessToken, userID));
+        await this.props.dispatch(startSetJwt(accessToken, userID));
         // Pass token
         console.log(this.props.token)
         await initStore(this.props.dispatch, this.props.token);

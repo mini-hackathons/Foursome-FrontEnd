@@ -3,6 +3,8 @@ package com.foursome;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage; // <-- Add this line
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
@@ -39,8 +41,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new AsyncStoragePackage(),
-            new RNCWebViewPackage(),
+          new RNFirebasePackage(),
+          new RNFirebaseMessagingPackage(),
+          //new RNFirebaseNotificationsPackage(),
+          new AsyncStoragePackage(),
+          new RNCWebViewPackage(),
           new FBSDKPackage(mCallbackManager),
           new RNGoogleSigninPackage(),
           new VectorIconsPackage(),

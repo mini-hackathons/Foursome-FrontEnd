@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "271666596131",
+    "firebase_url": "https://foursome-ebe6a.firebaseio.com",
+    "project_id": "foursome-ebe6a",
+    "storage_bucket": "foursome-ebe6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271666596131:android:bc373c2fa886512d",
+        "android_client_info": {
+          "package_name": "com.foursome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271666596131-2m57pkuosd9na6kjn5r04cel4ch0buds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD-p_he2xpfS71Xg-5KnbUGo5cY2n0mVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271666596131-2m57pkuosd9na6kjn5r04cel4ch0buds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
